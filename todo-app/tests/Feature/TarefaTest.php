@@ -73,7 +73,6 @@ class TarefaTest extends TestCase
     {
         $hoje = now()->format('Y-m-d');
 
-        // Esta deve aparecer nos resultados
         Tarefa::factory()->create([
             'titulo' => 'Deve aparecer',
             'estado' => 'pendente',
@@ -81,7 +80,6 @@ class TarefaTest extends TestCase
             'data_vencimento' => $hoje,
         ]);
 
-        // Esta deve ser filtrada
         Tarefa::factory()->create([
             'titulo' => 'Não deve aparecer',
             'estado' => 'concluida',
