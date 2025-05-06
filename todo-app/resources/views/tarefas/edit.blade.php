@@ -2,36 +2,37 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Tarefa</title>
+    <title>{{ __('messages.edit_title') }}</title>
 </head>
 <body>
 <div class="form-container">
-    <h1>✏️ Editar Tarefa</h1>
+    <h1>✏️ {{ __('messages.edit_title') }}</h1>
     <form method="POST" action="{{ route('tarefas.update', $tarefa->id) }}">
         @csrf
         @method('PUT')
 
-        <label for="titulo">Título</label>
+        <label for="titulo">{{ __('messages.title') }}</label>
         <input type="text" name="titulo" value="{{ $tarefa->titulo }}" required>
 
-        <label for="descricao">Descrição</label>
+        <label for="descricao">{{ __('messages.description') }}</label>
         <textarea name="descricao" rows="4">{{ $tarefa->descricao }}</textarea>
 
-        <label for="prioridade">Prioridade</label>
+        <label for="prioridade">{{ __('messages.priority') }}</label>
         <select name="prioridade">
-            <option value="alta" {{ $tarefa->prioridade == 'alta' ? 'selected' : '' }}>Alta</option>
-            <option value="média" {{ $tarefa->prioridade == 'média' ? 'selected' : '' }}>Média</option>
-            <option value="baixa" {{ $tarefa->prioridade == 'baixa' ? 'selected' : '' }}>Baixa</option>
+            <option value="alta" {{ $tarefa->prioridade == 'alta' ? 'selected' : '' }}>{{ __('messages.high') }}</option>
+            <option value="média" {{ $tarefa->prioridade == 'média' ? 'selected' : '' }}>{{ __('messages.medium') }}</option>
+            <option value="baixa" {{ $tarefa->prioridade == 'baixa' ? 'selected' : '' }}>{{ __('messages.low') }}</option>
         </select>
 
-        <label for="data_vencimento">Data de Vencimento</label>
+        <label for="data_vencimento">{{ __('messages.due_date') }}</label>
         <input type="date" name="data_vencimento" value="{{ $tarefa->data_vencimento }}">
 
-        <button type="submit">💾 Atualizar</button>
-        <a href="{{ route('tarefas.index') }}" class="voltar">⬅ Voltar</a>
+        <button type="submit">💾 {{ __('messages.update') }}</button>
+        <a href="{{ route('tarefas.index') }}" class="voltar">⬅ {{ __('messages.back') }}</a>
     </form>
 </div>
 </body>
+
 
 <style>
     body {

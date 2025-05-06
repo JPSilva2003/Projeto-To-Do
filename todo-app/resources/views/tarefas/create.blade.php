@@ -2,35 +2,36 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Criar Nova Tarefa</title>
+    <title>{{ __('messages.create_title') }}</title>
 </head>
 <body>
 <div class="form-container">
-    <h1>➕ Criar Nova Tarefa</h1>
+    <h1>➕ {{ __('messages.create_title') }}</h1>
     <form method="POST" action="{{ route('tarefas.store') }}">
         @csrf
 
-        <label for="titulo">Título</label>
+        <label for="titulo">{{ __('messages.title') }}</label>
         <input type="text" name="titulo" required>
 
-        <label for="descricao">Descrição</label>
+        <label for="descricao">{{ __('messages.description') }}</label>
         <textarea name="descricao" rows="4"></textarea>
 
-        <label for="prioridade">Prioridade</label>
+        <label for="prioridade">{{ __('messages.priority') }}</label>
         <select name="prioridade">
-            <option value="alta">Alta</option>
-            <option value="media" selected>Média</option>
-            <option value="baixa">Baixa</option>
+            <option value="alta">{{ __('messages.high') }}</option>
+            <option value="media" selected>{{ __('messages.medium') }}</option>
+            <option value="baixa">{{ __('messages.low') }}</option>
         </select>
 
-        <label for="data_vencimento">Data de Vencimento</label>
+        <label for="data_vencimento">{{ __('messages.due_date') }}</label>
         <input type="date" name="data_vencimento">
 
-        <button type="submit">💾 Guardar</button>
-        <a href="{{ route('tarefas.index') }}" class="voltar">⬅ Voltar</a>
+        <button type="submit">💾 {{ __('messages.save') }}</button>
+        <a href="{{ route('tarefas.index') }}" class="voltar">⬅ {{ __('messages.back') }}</a>
     </form>
 </div>
 </body>
+
 
 <style>
     body {

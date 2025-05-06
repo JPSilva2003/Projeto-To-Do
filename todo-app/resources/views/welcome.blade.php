@@ -60,9 +60,10 @@
 
 <div class="welcome-container">
     <div class="welcome-box">
-        <h1>👋 Bem-vindo ao To-Do App</h1>
-        <p>Organiza as tuas tarefas de forma fácil e rápida.</p>
-        <a href="{{ route('tarefas.index') }}">📋 Ver Tarefas</a>
+
+        <h1>👋 {{ __('messages.welcome') }}</h1>
+        <p>{{ __('messages.welcome_text') }}</p>
+        <a href="{{ route('tarefas.index') }}">📋 {{ __('messages.view_tasks') }}</a>
     </div>
 </div>
 @endsection

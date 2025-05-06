@@ -1,63 +1,46 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>@yield('title', 'To-Do')</title>
-</head>
-<body>
+@extends('layouts.app')
 
-<nav>
-    <a href="{{ url('/') }}" class="text-xl font-bold text-indigo-700">📋 To-Do App</a>
-    <a href="{{ route('tarefas.create') }}" class="btn btn-concluir">➕ Nova Tarefa</a>
-</nav>
+@section('title', __('messages.app_title'))
 
-<main class="container">
-    @if (request()->routeIs('tarefas.index'))
+@section('content')
+<h1 class="title">📋 {{ __('messages.task_list') }}</h1>
 
-    <h1 class="title">📋 Lista de Tarefas</h1>
+@if(session('success'))
+<div class="success">{{ session('success') }}</div>
+@endif
 
-    @if(session('success'))
-    <div class="success">{{ session('success') }}</div>
-    @endif
-
-    <!-- Filtros -->
-    <form method="GET" id="filtroForm" class="mb-10">
-        <div class="flex flex-wrap items-center gap-4">
-            <div>
-                <label for="estado" class="font-medium text-gray-700 block">Estado</label>
-                <select name="estado" id="estado" class="auto-submit px-4 py-2 rounded-lg border border-gray-300 shadow-sm">
-                    <option value="">🔄 Todos</option>
-                    <option value="pendente">🕓 Pendente</option>
-                    <option value="concluida">✅ Concluída</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="prioridade" class="font-medium text-gray-700 block">Prioridade</label>
-                <select name="prioridade" id="prioridade" class="auto-submit px-4 py-2 rounded-lg border border-gray-300 shadow-sm">
-                    <option value="">Todas</option>
-                    <option value="alta">Alta</option>
-                    <option value="média">Média</option>
-                    <option value="baixa">Baixa</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="data_vencimento" class="font-medium text-gray-700 block">Data de Vencimento</label>
-                <input type="date" name="data_vencimento" id="data_vencimento" class="auto-submit px-4 py-2 rounded-lg border border-gray-300 shadow-sm">
-            </div>
+<!-- Filtros -->
+<form method="GET" id="filtroForm" class="mb-10">
+    <div class="flex flex-wrap items-center gap-4">
+        <div>
+            <label for="estado">{{ __('messages.status') }}</label>
+            <select name="estado" id="estado" class="auto-submit">
+                <option value="">{{ __('messages.all') }}</option>
+                <option value="pendente">{{ __('messages.pending') }}</option>
+                <option value="concluida">{{ __('messages.completed') }}</option>
+            </select>
         </div>
-    </form>
-
-    <!-- TAREFAS -->
-    <div id="tarefasContainer">
-        @include('tarefas.tarefas-lista', ['tarefas' => $tarefas])
+        <div>
+            <label for="prioridade">{{ __('messages.priority') }}</label>
+            <select name="prioridade" id="prioridade" class="auto-submit">
+                <option value="">{{ __('messages.all') }}</option>
+                <option value="alta">{{ __('messages.high') }}</option>
+                <option value="média">{{ __('messages.medium') }}</option>
+                <option value="baixa">{{ __('messages.low') }}</option>
+            </select>
+        </div>
+        <div>
+            <label for="data_vencimento">{{ __('messages.due_date') }}</label>
+            <input type="date" name="data_vencimento" id="data_vencimento" class="auto-submit">
+        </div>
     </div>
+</form>
 
-    @else
-    @yield('content')
-    @endif
-</main>
+<!-- Tarefas -->
+<div id="tarefasContainer">
+    @include('tarefas.tarefas-lista', ['tarefas' => $tarefas])
+</div>
+@endsection
 
 
 
@@ -185,24 +168,6 @@
         color: white;
         text-decoration: none;
     }
-    .btn-editar {
-        background-color: #facc15;
-    }
-    .btn-editar:hover {
-        background-color: #eab308;
-    }
-    .btn-remover {
-        background-color: #ef4444;
-    }
-    .btn-remover:hover {
-        background-color: #dc2626;
-    }
-    .btn-concluir {
-        background-color: #10b981;
-    }
-    .btn-concluir:hover {
-        background-color: #059669;
-    }
 
     /* 🔥 MEDIA QUERIES */
     @media (max-width: 768px) {
@@ -232,7 +197,7 @@
 </style>
 
 
-
+@section('scripts')
 <script>
     document.querySelectorAll('.auto-submit').forEach(el => {
         el.addEventListener('change', () => {
@@ -250,8 +215,4 @@
         });
     });
 </script>
-
-
-
-</body>
-</html>
+@endsection

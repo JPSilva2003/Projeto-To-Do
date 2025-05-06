@@ -3,29 +3,29 @@
 @section('content')
 
 <div class="form-container">
-    <h1>📌 Detalhes da Tarefa</h1>
+    <h1>📌 {{ __('messages.task_details') }}</h1>
 
     <div>
-        <label>Título:</label>
+        <label>{{ __('messages.title') }}:</label>
         <div class="field-value">{{ $tarefa->titulo }}</div>
 
         @if($tarefa->descricao)
-        <label>Descrição:</label>
+        <label>{{ __('messages.description') }}:</label>
         <div class="field-value" style="white-space: pre-line;">{{ $tarefa->descricao }}</div>
         @endif
 
-        <label>Prioridade:</label>
+        <label>{{ __('messages.priority') }}:</label>
         <div class="field-value">{{ ucfirst($tarefa->prioridade) }}</div>
 
-        <label>Data de Vencimento:</label>
-        <div class="field-value">{{ $tarefa->data_vencimento ?? 'Sem data definida' }}</div>
+        <label>{{ __('messages.due_date') }}:</label>
+        <div class="field-value">{{ $tarefa->data_vencimento ?? __('messages.no_due_date') }}</div>
 
-        <label>Estado:</label>
+        <label>{{ __('messages.status') }}:</label>
         <div class="field-value">
             @if($tarefa->estado === 'concluida')
-            <span class="badge concluida">✅ Concluída</span>
+            <span class="badge concluida">✅ {{ __('messages.completed') }}</span>
             @else
-            <span class="badge pendente">🕓 Pendente</span>
+            <span class="badge pendente">🕓 {{ __('messages.pending') }}</span>
             @endif
         </div>
     </div>
@@ -35,22 +35,22 @@
         <form action="{{ route('tarefas.concluir', $tarefa) }}" method="POST">
             @csrf
             @method('PATCH')
-            <button type="submit">✅ Concluir</button>
+            <button type="submit">✅ {{ __('messages.complete') }}</button>
         </form>
         @endif
 
         <a href="{{ route('tarefas.edit', $tarefa) }}">
-            <button class="edit">✏️ Editar</button>
+            <button class="edit">✏️ {{ __('messages.edit') }}</button>
         </a>
 
-        <form action="{{ route('tarefas.destroy', $tarefa) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja remover esta tarefa?')">
+        <form action="{{ route('tarefas.destroy', $tarefa) }}" method="POST" onsubmit="return confirm('{{ __('messages.confirm_delete') }}')">
             @csrf
             @method('DELETE')
-            <button type="submit" class="delete">🗑️ Remover</button>
+            <button type="submit" class="delete">🗑️ {{ __('messages.delete') }}</button>
         </form>
     </div>
 
-    <a href="{{ route('tarefas.index') }}" class="voltar">⬅ Voltar à Lista</a>
+    <a href="{{ route('tarefas.index') }}" class="voltar">⬅ {{ __('messages.back_to_list') }}</a>
 </div>
 
 <style>
