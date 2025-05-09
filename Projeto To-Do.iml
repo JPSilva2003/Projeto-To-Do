@@ -121,6 +121,10 @@
       <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/webmozart/assert" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/sendgrid/php-http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/sendgrid/sendgrid" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/starkbank/ecdsa" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/erag/laravel-pwa" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

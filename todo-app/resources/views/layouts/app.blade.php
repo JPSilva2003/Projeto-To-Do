@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <title>@yield('title', __('messages.app_title'))</title>
 
+    @PwaHead
 </head>
 <body>
 
-<!-- 🔝 NAVBAR -->
 <nav>
-    <!-- Esquerda -->
     <div class="nav-left">
         <a href="{{ url('/') }}" class="logo">📋 {{ __('messages.app_title') }}</a>
         <a href="{{ route('idiomas.gestao') }}" class="language-link">🌐 @lang('messages.language')</a>
     </div>
 
-    <!-- Centro -->
     <div class="nav-center">
         @php
         $languages = \App\Models\Idioma::where('ativo', true)->get();
@@ -31,19 +29,17 @@
         </form>
     </div>
 
-    <!-- Direita -->
     <div class="nav-right">
         <a href="{{ route('tarefas.create') }}" class="btn">➕ {{ __('messages.new_task') }}</a>
     </div>
 </nav>
 
-<!-- 📄 CONTEÚDO PRINCIPAL -->
 <main>
     @yield('content')
 </main>
 
 @yield('scripts')
-
+@RegisterServiceWorkerScript
 </body>
 
 <style>
