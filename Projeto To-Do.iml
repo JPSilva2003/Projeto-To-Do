@@ -125,6 +125,11 @@
       <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/sendgrid/sendgrid" />
       <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/starkbank/ecdsa" />
       <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/erag/laravel-pwa" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/laravel-notification-channels/webpush" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/minishlink/web-push" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/spomky-labs/base64url" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/spomky-labs/pki-framework" />
+      <excludeFolder url="file://$MODULE_DIR$/todo-app/vendor/web-token/jwt-library" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

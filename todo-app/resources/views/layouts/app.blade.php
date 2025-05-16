@@ -5,6 +5,12 @@
     <title>@yield('title', __('messages.app_title'))</title>
 
     @PwaHead
+
+    {{-- 🔑 Meta tag com a chave pública VAPID --}}
+    <meta name="vapid-public-key" content="{{ config('webpush.vapid.public_key') }}">
+
+    {{-- 🔐 Meta CSRF para requisições JS --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 
@@ -40,6 +46,64 @@
 
 @yield('scripts')
 @RegisterServiceWorkerScript
+
+{{-- 🚀 Registro do Service Worker --}}
+<script>
+    if ('serviceWorker' in navigator && 'PushManager' in window) {
+        window.addEventListener('load', async () => {
+            await forceNewSubscription();
+        });
+    }
+
+    async function forceNewSubscription() {
+        try {
+            const registration = await navigator.serviceWorker.register('/service-worker.js');
+            console.log('✅ Service Worker registrado:', registration);
+
+            const existingSubscription = await registration.pushManager.getSubscription();
+
+            if (!existingSubscription) {
+                const vapidKey = document.querySelector('meta[name="vapid-public-key"]').getAttribute('content');
+
+                const newSubscription = await registration.pushManager.subscribe({
+                    userVisibleOnly: true,
+                    applicationServerKey: urlBase64ToUint8Array(vapidKey)
+                });
+
+                const response = await fetch('/save-subscription', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify(newSubscription)
+                });
+
+
+                console.log('📡 Nova subscrição enviada ao servidor.', response.status);
+            } else {
+                console.log('ℹ️ Subscrição já existente.');
+            }
+        } catch (error) {
+            console.error('❌ Erro ao registrar o Service Worker ou subscrever:', error);
+        }
+    }
+
+    // 📦 Função auxiliar
+    function urlBase64ToUint8Array(base64String) {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+    }
+</script>
+
+
 </body>
 
 <style>
@@ -143,4 +207,5 @@
         text-decoration: underline;
     }
 </style>
+
 </html>

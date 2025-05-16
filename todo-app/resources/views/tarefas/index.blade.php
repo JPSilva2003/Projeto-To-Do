@@ -43,7 +43,6 @@
 @endsection
 
 
-
 <style>
     body {
         font-family: 'Segoe UI', sans-serif;
@@ -51,6 +50,7 @@
         margin: 0;
         padding: 0;
     }
+
     nav {
         background: #fff;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -60,11 +60,45 @@
         align-items: center;
         flex-wrap: wrap;
     }
-    .container {
+
+    .nav-left, .nav-center, .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex: 1;
+    }
+
+    .nav-center {
+        justify-content: center;
+    }
+
+    .nav-right {
+        justify-content: flex-end;
+    }
+
+    a.logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #4f46e5;
+        text-decoration: none;
+    }
+
+    a.language-link {
+        font-size: 0.95rem;
+        color: #555;
+        text-decoration: none;
+    }
+
+    a.language-link:hover {
+        text-decoration: underline;
+    }
+
+    .container, main {
         max-width: 1200px;
-        margin: auto;
+        margin: 2rem auto;
         padding: 0 1rem;
     }
+
     .title {
         font-size: 2rem;
         font-weight: bold;
@@ -72,6 +106,7 @@
         margin-bottom: 2rem;
         text-align: center;
     }
+
     .success {
         background-color: #d1fae5;
         color: #065f46;
@@ -81,6 +116,7 @@
         margin-bottom: 1.5rem;
         text-align: center;
     }
+
     form#filtroForm {
         margin-bottom: 2rem;
         display: flex;
@@ -89,10 +125,12 @@
         flex-wrap: wrap;
         justify-content: center;
     }
+
     form#filtroForm > div {
         flex: 1 1 200px;
         min-width: 180px;
     }
+
     select, input[type="date"] {
         padding: 0.5rem 1rem;
         border-radius: 8px;
@@ -101,23 +139,13 @@
         width: 100%;
         box-sizing: border-box;
     }
-    button {
-        background-color: #4f46e5;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #4338ca;
-    }
+
     .grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: 1.5rem;
     }
+
     .card {
         background: #fff;
         border-radius: 12px;
@@ -127,18 +155,21 @@
         flex-direction: column;
         justify-content: space-between;
     }
+
     .card h3 {
         font-size: 1.1rem;
         margin-bottom: 0.5rem;
         color: #111827;
         word-break: break-word;
     }
+
     .card p {
         margin: 0.3rem 0;
         color: #374151;
         font-size: 0.9rem;
         word-break: break-word;
     }
+
     .estado {
         display: inline-block;
         padding: 0.25rem 0.5rem;
@@ -146,27 +177,59 @@
         font-size: 0.75rem;
         font-weight: bold;
     }
+
     .concluida {
         background-color: #d1fae5;
         color: #065f46;
     }
+
     .pendente {
         background-color: #fef3c7;
         color: #92400e;
     }
+
     .buttons {
         margin-top: 1rem;
         display: flex;
         flex-direction: column;
         gap: 0.4rem;
     }
+
     .btn {
-        text-align: center;
-        padding: 0.6rem;
-        border-radius: 6px;
-        font-size: 0.85rem;
+        background-color: #10b981;
         color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        text-align: center;
+        font-weight: 600;
         text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-editar {
+        background-color: #facc15;
+    }
+
+    .btn-editar:hover {
+        background-color: #eab308;
+    }
+
+    .btn-remover {
+        background-color: #ef4444;
+    }
+
+    .btn-remover:hover {
+        background-color: #dc2626;
+    }
+
+    .btn-concluir {
+        background-color: #10b981;
+    }
+
+    .btn-concluir:hover {
+        background-color: #059669;
     }
 
     /* 🔥 MEDIA QUERIES */
@@ -175,6 +238,7 @@
             flex-direction: column;
             gap: 1rem;
         }
+
         .grid {
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         }
@@ -184,18 +248,20 @@
         .title {
             font-size: 1.5rem;
         }
+
         .success {
             font-size: 0.95rem;
         }
+
         .grid {
             grid-template-columns: 1fr;
         }
+
         .card {
             padding: 1rem;
         }
     }
 </style>
-
 
 @section('scripts')
 <script>

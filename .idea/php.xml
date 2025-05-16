@@ -118,6 +118,11 @@
       <path value="$PROJECT_DIR$/todo-app/vendor/sendgrid/sendgrid" />
       <path value="$PROJECT_DIR$/todo-app/vendor/sendgrid/php-http-client" />
       <path value="$PROJECT_DIR$/todo-app/vendor/erag/laravel-pwa" />
+      <path value="$PROJECT_DIR$/todo-app/vendor/minishlink/web-push" />
+      <path value="$PROJECT_DIR$/todo-app/vendor/laravel-notification-channels/webpush" />
+      <path value="$PROJECT_DIR$/todo-app/vendor/spomky-labs/base64url" />
+      <path value="$PROJECT_DIR$/todo-app/vendor/spomky-labs/pki-framework" />
+      <path value="$PROJECT_DIR$/todo-app/vendor/web-token/jwt-library" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.3">

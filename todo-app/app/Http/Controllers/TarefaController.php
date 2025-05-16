@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
+use App\Services\PushService;
 
 class TarefaController extends Controller
 {
@@ -52,13 +53,22 @@ class TarefaController extends Controller
             'data_vencimento' => 'nullable|date',
         ]);
 
-        Tarefa::create([
+        $tarefa = Tarefa::create([
             'titulo' => $request->titulo,
             'descricao' => $request->descricao,
             'prioridade' => $request->prioridade,
             'data_vencimento' => $request->data_vencimento,
             'estado' => 'pendente',
         ]);
+
+
+        PushService::sendToTrigger(
+            'tarefa_criada',
+            '📋 Nova tarefa!',
+            'Uma nova tarefa foi adicionada',
+            url('/tarefas')
+        );
+
 
         return redirect()->route('tarefas.index')->with('success', 'Tarefa criada com sucesso!');
     }
@@ -81,6 +91,13 @@ class TarefaController extends Controller
 
         $tarefa->update($request->only(['titulo', 'descricao', 'data_vencimento', 'prioridade']));
 
+        PushService::sendToTrigger(
+            'tarefa_editada',
+            '✏️ Tarefa atualizada!',
+            "A tarefa \"{$tarefa->titulo}\" foi editada.",
+            url('/tarefas/' . $tarefa->id)
+        );
+
         return redirect()->route('tarefas.index')->with('success', 'Tarefa atualizada com sucesso!');
     }
 
@@ -93,14 +110,30 @@ class TarefaController extends Controller
     // 🗑️ Eliminar tarefa
     public function destroy(Tarefa $tarefa)
     {
+        $titulo = $tarefa->titulo;
         $tarefa->delete();
+
+        PushService::sendToTrigger(
+            'tarefa_eliminada',
+            '🗑️ Tarefa eliminada!',
+            "A tarefa \"{$titulo}\" foi removida.",
+            url('/tarefas')
+        );
+
         return redirect()->route('tarefas.index')->with('success', 'Tarefa removida com sucesso!');
     }
 
     // ✅ Marcar como concluída (opcional)
-    public function concluir(\App\Models\Tarefa $tarefa)
+    public function concluir(Tarefa $tarefa)
     {
         $tarefa->update(['estado' => 'concluida']);
+
+        PushService::sendToTrigger(
+            'tarefa_concluida',
+            '✅ Tarefa concluída!',
+            "A tarefa \"{$tarefa->titulo}\" foi marcada como concluída.",
+            url('/tarefas/' . $tarefa->id)
+        );
 
         return redirect()->route('tarefas.index')->with('success', 'Tarefa marcada como concluída!');
     }

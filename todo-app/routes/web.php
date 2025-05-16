@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TarefaController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\IdiomaCsvController;
-
-
-
+use App\Http\Controllers\IdiomaController;
+use App\Http\Controllers\PushSubscriptionController;
 
 Route::get('/', function () {
     return view('welcome'); // welcome.blade.php usa o layout base.blade.php
@@ -26,8 +25,9 @@ Route::get('/idiomas', [IdiomaController::class, 'index'])->name('idiomas.index'
 
 
 
-
 Route::get('lang/change/{locale}', [LanguageController::class, 'change'])->name('lang.change');
 
 
 
+
+Route::post('/save-subscription', [PushSubscriptionController::class, 'store']);
